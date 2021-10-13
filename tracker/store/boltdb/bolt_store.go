@@ -79,8 +79,8 @@ func (b *BoltStore) ListPrefix(prefix string) ([]string, error) {
 
 	res := []string{}
 	c := txn.Bucket(dbConf).Cursor()
-	for k, v := c.Seek([]byte(prefix)); k != nil && bytes.HasPrefix(k, []byte(prefix)); k, v = c.Next() {
-		res = append(res, string(v))
+	for k, _ := c.Seek([]byte(prefix)); k != nil && bytes.HasPrefix(k, []byte(prefix)); k, _ = c.Next() {
+		res = append(res, k)
 	}
 	return res, nil
 }
