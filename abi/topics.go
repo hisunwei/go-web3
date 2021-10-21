@@ -74,7 +74,7 @@ func ParseTopics(args *Type, topics []web3.Hash) ([]interface{}, error) {
 }
 
 // ParseTopic parses an individual topic
-func ParseTopic(t *Type, topic web3.Hash) (interface{}, error) {
+var ParseTopic = func(t *Type, topic web3.Hash) (interface{}, error) {
 	switch t.kind {
 	case KindBool:
 		if bytes.Equal(topic[:], topicTrue[:]) {
