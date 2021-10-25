@@ -154,7 +154,10 @@ func (l *LogFilter) MarshalJSON() ([]byte, error) {
 			v.SetArrayItem(indx, a.NewString(topic.String()))
 		}
 	}
-	o.Set("topics", v)
+	// convert array to array[array[or]], for track multi event, see https://eth.wiki/json-rpc/API#eth_getlogs
+	v0 := a.NewArray()
+	v0.SetArrayItem(0, v)
+	o.Set("topics", v0)
 
 	if l.BlockHash != nil {
 		o.Set("blockhash", a.NewString((*l.BlockHash).String()))
